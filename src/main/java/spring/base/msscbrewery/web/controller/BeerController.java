@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import spring.base.msscbrewery.services.BeerService;
 import spring.base.msscbrewery.web.model.BeerDto;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 /*
@@ -30,7 +31,7 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity<BeerDto> handlePost(BeerDto beerDto) {
+    public ResponseEntity<BeerDto> handlePost(@Valid @RequestBody BeerDto beerDto) {
 
         BeerDto savedDto = beerService.saveNewBeer(beerDto);
 
@@ -43,7 +44,7 @@ public class BeerController {
     }
 
     @PutMapping({"/{beerId}"})
-    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, BeerDto beerDto) {
+    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, @Valid @RequestBody BeerDto beerDto) {
 
         beerService.updateBeer(beerId, beerDto);
 
